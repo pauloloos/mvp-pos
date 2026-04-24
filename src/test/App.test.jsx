@@ -1,24 +1,30 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
-import axios from 'axios'
 import App from '../App'
 
-// Mock do axios - deve vir antes de importar o App
-vi.mock('axios')
+// Mock de dados
+const mockWeatherData = {
+  name: 'Test City',
+  main: { temp: 20, feels_like: 18, humidity: 75 },
+  weather: [{ description: 'céu limpo', icon: '01d' }],
+  wind: { speed: 3 },
+  sys: { country: 'BR' }
+}
+
+// Mock do axios
+vi.mock('axios', () => ({
+  default: {
+    get: vi.fn(() => Promise.resolve({ data: mockWeatherData }))
+  }
+}))
+
+import axios from 'axios'
 
 describe('App - Integração', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    // Mock que sempre retorna dados válidos para qualquer chamada
-    axios.get.mockResolvedValue({
-      data: {
-        name: 'Test City',
-        main: { temp: 20, feels_like: 18, humidity: 75 },
-        weather: [{ description: 'céu limpo', icon: '01d' }],
-        wind: { speed: 3 },
-        sys: { country: 'BR' }
-      }
-    })
+    // Configura o mock para cada chamada retornar dados válidos
+    axios.get.mockResolvedValue({ data: mockWeatherData })
   })
 
   afterEach(() => {
