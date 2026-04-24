@@ -15,6 +15,7 @@ export const CITIES_SC = [
   'Tubarão',
   'Rio do Sul',
   'Laguna',
+  'Lontras',
   'Canoinhas',
   'Mafra',
   'São Francisco do Sul',
