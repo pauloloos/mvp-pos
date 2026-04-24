@@ -75,4 +75,4 @@ src/
 
 ---
 
-Desenvolvido para o curso MVP POS 🧡
+Desenvolvido para o curso MVP POS
