@@ -58,15 +58,27 @@ npm run dev
 ## 📁 Estrutura do Projeto
 
 ```
-src/
-├── components/
-│   ├── SearchBar.jsx    # Componente de busca
-│   └── WeatherCard.jsx  # Card de informações climáticas
-├── data/
-│   └── cities.js        # Lista de cidades de SC
-├── App.jsx              # Componente principal
-├── main.jsx             # Entry point
-└── index.css            # Estilos globais
+mvp-pos/
+├── src/
+│   ├── components/
+│   │   ├── SearchBar.jsx    # Componente de busca
+│   │   └── WeatherCard.jsx  # Card de informações climáticas
+│   ├── data/
+│   │   └── cities.js        # Lista de cidades de SC
+│   ├── test/
+│   │   ├── App.test.jsx           # Testes do componente principal
+│   │   ├── SearchBar.test.jsx     # Testes do componente de busca
+│   │   ├── WeatherCard.test.jsx   # Testes do card climático
+│   │   └── setupTests.js          # Configuração dos testes
+│   ├── App.jsx              # Componente principal
+│   ├── main.jsx             # Entry point
+│   └── index.css            # Estilos globais (Tailwind)
+├── index.html
+├── package.json
+├── vite.config.js
+├── vitest.config.js
+├── tailwind.config.js
+└── postcss.config.js
 ```
 
 ## 🔑 Obtendo a API Key
