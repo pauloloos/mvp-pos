@@ -23,6 +23,7 @@
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@vitejs/plugin-react": "^4.7.0",
+    "@vitest/ui": "^2.1.9",
     "autoprefixer": "^10.4.17",
     "jsdom": "^24.0.0",
     "postcss": "^8.4.35",

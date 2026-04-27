@@ -41,6 +41,9 @@ npm run dev
 - `npm run dev` - Inicia o servidor de desenvolvimento
 - `npm run build` - Build de produção
 - `npm run preview` - Preview do build de produção
+- `npm test` - Executa os testes em modo watch
+- `npm run test:run` - Executa os testes uma única vez
+- `npm run test:ui` - Executa os testes com interface visual
 
 ## 🎯 Funcionalidades
 
