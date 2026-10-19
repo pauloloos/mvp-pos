@@ -45,6 +45,17 @@ npm run dev
 - `npm run test:run` - Executa os testes uma única vez
 - `npm run test:ui` - Executa os testes com interface visual
 
+## 🧪 Testes de Integração
+
+Os testes de integração em `src/test/App.test.jsx` simulam a API OpenWeatherMap e verificam:
+
+- carregamento e exibição de dados válidos, incluindo os parâmetros enviados à API;
+- bloqueio de buscas com parâmetro de cidade vazio;
+- erros de autenticação, comunicação e indisponibilidade do serviço;
+- respostas ausentes ou inconsistentes, que devem ser rejeitadas sem interromper os demais dados.
+
+Execute os testes com `npm run test:run`. As chamadas HTTP são simuladas, portanto não é necessária uma chave real da API.
+
 ## 🎯 Funcionalidades
 
 - Exibição de temperatura atual em Celsius

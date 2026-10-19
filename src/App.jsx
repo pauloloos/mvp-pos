@@ -7,6 +7,39 @@ import { CITIES_SC } from './data/cities'
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || 'SUA_CHAVE_API_AQUI'
 const BASE_URL = 'https://api.openweathermap.org/data/2.5'
 
+const isValidWeatherData = (data) => (
+  data &&
+  typeof data.name === 'string' &&
+  typeof data.sys?.country === 'string' &&
+  Number.isFinite(data.main?.temp) &&
+  Number.isFinite(data.main?.feels_like) &&
+  Number.isFinite(data.main?.humidity) &&
+  Array.isArray(data.weather) &&
+  data.weather.length > 0 &&
+  Number.isFinite(data.wind?.speed)
+)
+
+const fetchWeatherData = async (city) => {
+  const response = await axios.get(`${BASE_URL}/weather`, {
+    params: {
+      q: `${city},BR`,
+      appid: API_KEY,
+      units: 'metric',
+      lang: 'pt_br'
+    }
+  })
+
+  if (!isValidWeatherData(response.data)) {
+    throw new Error(`Resposta inválida recebida da API para ${city}.`)
+  }
+
+  return response.data
+}
+
+const getErrorMessage = (err) => (
+  err.response?.data?.message || err.message || 'Erro desconhecido'
+)
+
 function App() {
   const [weatherData, setWeatherData] = useState({})
   const [loading, setLoading] = useState(true)
@@ -18,21 +51,14 @@ function App() {
       setLoading(true)
       setError(null)
       
-      const response = await axios.get(`${BASE_URL}/weather`, {
-        params: {
-          q: `${city},BR`,
-          appid: API_KEY,
-          units: 'metric',
-          lang: 'pt_br'
-        }
-      })
+      const data = await fetchWeatherData(city)
       
       setWeatherData(prev => ({
         ...prev,
-        [city]: response.data
+        [city]: data
       }))
     } catch (err) {
-      setError(`Erro ao buscar dados para ${city}: ${err.response?.data?.message || err.message}`)
+      setError(`Erro ao buscar dados para ${city}: ${getErrorMessage(err)}`)
     } finally {
       setLoading(false)
     }
@@ -43,24 +69,18 @@ function App() {
     setError(null)
     
     const results = {}
+    const errors = []
     
     for (const city of CITIES_SC) {
       try {
-        const response = await axios.get(`${BASE_URL}/weather`, {
-          params: {
-            q: `${city},BR`,
-            appid: API_KEY,
-            units: 'metric',
-            lang: 'pt_br'
-          }
-        })
-        results[city] = response.data
+        results[city] = await fetchWeatherData(city)
       } catch (err) {
-        console.error(`Erro ao buscar ${city}:`, err.message)
+        errors.push(`Erro ao buscar dados para ${city}: ${getErrorMessage(err)}`)
       }
     }
     
     setWeatherData(results)
+    setError(errors.length > 0 ? errors.join(' ') : null)
     setLoading(false)
   }
 
