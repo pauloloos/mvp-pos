@@ -42,19 +42,23 @@ npm run dev
 - `npm run build` - Build de produção
 - `npm run preview` - Preview do build de produção
 - `npm test` - Executa os testes em modo watch
+- `npm run test:unit` - Executa os testes unitários dos componentes
+- `npm run test:integration` - Executa os testes de integração da aplicação com a API simulada
 - `npm run test:run` - Executa os testes uma única vez
 - `npm run test:ui` - Executa os testes com interface visual
 
-## 🧪 Testes de Integração
+## 🧪 Testes
 
-Os testes de integração em `src/test/App.test.jsx` simulam a API OpenWeatherMap e verificam:
+Os testes unitários dos componentes ficam em `src/test/SearchBar.test.jsx` e `src/test/WeatherCard.test.jsx`. Os testes de integração em `src/test/App.test.jsx` simulam a API OpenWeatherMap e verificam:
 
 - carregamento e exibição de dados válidos, incluindo os parâmetros enviados à API;
 - bloqueio de buscas com parâmetro de cidade vazio;
 - erros de autenticação, comunicação e indisponibilidade do serviço;
 - respostas ausentes ou inconsistentes, que devem ser rejeitadas sem interromper os demais dados.
 
-Execute os testes com `npm run test:run`. As chamadas HTTP são simuladas, portanto não é necessária uma chave real da API.
+Execute `npm run test:unit` e `npm run test:integration` para rodar cada suíte separadamente, ou `npm run test:run` para executar todos os testes. As chamadas HTTP são simuladas, portanto não é necessária uma chave real da API.
+
+O workflow de integração contínua em `.github/workflows/ci.yml` é executado em pushes e pull requests. Ele instala as dependências com `npm ci`, roda os testes unitários e de integração e valida o build de produção.
 
 ## 🎯 Funcionalidades
 

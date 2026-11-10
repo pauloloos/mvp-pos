@@ -8,6 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest",
+    "test:unit": "vitest run src/test/SearchBar.test.jsx src/test/WeatherCard.test.jsx",
+    "test:integration": "vitest run src/test/App.test.jsx",
     "test:ui": "vitest --ui",
     "test:run": "vitest run"
   },
